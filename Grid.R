@@ -6,7 +6,7 @@ options(digits=22)
 ##                  Data & Packages               ##
 ####################################################
 library(ggplot2)
-setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN MODEL")
+setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 
 ####################################################
 ##             alpha & beta estimation            ##

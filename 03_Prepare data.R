@@ -110,7 +110,7 @@ stockdist_inv <- dist_inv
 
 
 
-setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN MODEL")
+setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 save(data, file="chrono.Rdata")
 save(clim, file="clim.Rdata")
 save(stockdist_inv, file="dist_inv.Rdata")

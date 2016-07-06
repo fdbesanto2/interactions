@@ -5,11 +5,11 @@
 rm(list=ls(all=TRUE))
 options(digits=22)
 
-setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN MODEL")
+setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 load("./result_estimate.Rdata")
 
-#load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/04 - BIC/output/PtBICsh.rdata")
-#load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN MODEL/ArBICsh10.rdata")
+#load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/04_BIC/output/PtBICsh.rdata")
+#load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL/ArBICsh10.rdata")
 
 ####################################################
 ##                       raster                   ##
@@ -26,7 +26,7 @@ scale_fill_gradientn(colours=c("blue","green","red"))+
 geom_point(data= out[out[,3]==max(out[,3]),], color="black")+
 ggtitle(point)
 
-#ggsave("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/04 - BIC/output/PtBICsh.jpg", width=5, height= 5, dpi=600)
+#ggsave("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/04_BIC/output/PtBICsh.jpg", width=5, height= 5, dpi=600)
 
 
 ####################################################
