@@ -351,4 +351,6 @@ par(mfrow=c(1,1))
 ##            save parameters values              ##
 ####################################################
 
-save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI")
+save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rda")
+save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rdata")
+save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rds")

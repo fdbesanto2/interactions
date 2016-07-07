@@ -12,13 +12,17 @@ options(digits=22)
 setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model")
 
 
-load("modESSAI")
+load("modESSAI.rda")
+load("modESSAI.rdata")
+load("modESSAI.rds")
 
 
 summary(mod)
 
+plot(mod)
 
-###### predict
+
+
 
 #  voir documentation package effects pour les plots
 
