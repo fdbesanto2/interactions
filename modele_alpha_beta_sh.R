@@ -288,7 +288,8 @@ variance <- cbind(variance[,1],round(variance[,2:3], digits=5))
 nsim <- 1000
 bsim <- sim(mod, n.sim=nsim)
 #str(bsim)
-round(apply(bsim@fixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3)
+par <- round(apply(bsim@fixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3)
+par
 
 ####################################################
 ##         Plot posterior distribution            ##
@@ -350,7 +351,31 @@ par(mfrow=c(1,1))
 ####################################################
 ##            save parameters values              ##
 ####################################################
+setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model")
 
-save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rda")
-save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rdata")
-save(mod, file = "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/output_model/modESSAI.rds")
+## bayesian parameters estimates
+namebsim <- paste("bsimfixef", spsite, ".rdata", sep="")
+bsimfixef <- as.data.frame(bsim@fixef)
+save(bsimfixef, file = namebsim)
+
+## adjusted r2 (mod1)
+namemod1 <- paste("mod1", spsite, ".rdata", sep="")
+save(mod1, file = namemod1)
+
+####################################################
+##         save models for "effects" plots        ##
+####################################################
+# model
+namemod <- paste("mod", spsite, ".rdata", sep="")
+save(mod, file = namemod)
+
+# data_new
+namedata <- paste("data_new", spsite, ".rdata", sep="")
+save(data_new, file = namedata)
+
+# non scaled Clim & NCI
+namesaveclim <- paste("saveclim", spsite, ".rdata", sep="")
+save(saveclim, file = namesaveclim)
+
+namesaveNCI <- paste("saveNCI", spsite, ".rdata", sep="")
+save(saveNCI, file = namesaveNCI)
