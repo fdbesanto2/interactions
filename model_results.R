@@ -24,8 +24,44 @@ library(ggplot2)
 ##               extraction function              ##
 ####################################################
 
+#############################  parameters tab  ###############################
+funky <- function(){
+  par <- as.data.frame(round(apply(bsimfixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3))
+  par["plotsp",] <- paste(p,s,sep="")
+  par <- t(par)
+  par2["plotsp",] <- paste(p,s,sep="")
+  par2 <- t(par2)
+  nbpar <- dim(bsimfixef)[2]
+  tab <- matrix(ncol=4, nrow=nbpar+7)
+  tab[1,] <- c(p,"","","")
+  tab[2,] <- c(s,"","","")
+  tab[3,] <- c(round(as.numeric(par2[1,1]), digits=2),"","","")
+  tab[4,] <- c(par2[2,1],"","","")
+  tab[5,] <- c(par2[3,1],"","","")
+  tab[6,] <- c(colnames(par)[1],paste(colnames(par)[2],"/signfixef", sep=""),colnames(par)[3],"Std.Dev.randef")
+  sdrandef <- as.data.frame(summary(mod)$varcor)[1:nbpar,]
+  for (i in 1:nbpar){
+    j <- rownames(par)[i]
+    tab[6+i,] <- c(par[rownames(par)==j,1:3], round(sdrandef[sdrandef$var1 ==j,"sdcor"], digits=3))
+    if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.001 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.001){
+      tab[6+i,2] <- paste(tab[6+i,2],"***")
+    } else if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.01 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.01){
+      tab[6+i,2] <- paste(tab[6+i,2],"**")
+    } else if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.05 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.05){
+      tab[6+i,2] <- paste(tab[6+i,2],"*")
+    } else {tab[6+i,2] <- paste(tab[6+i,2],"ns")}
+  }
+  tab[nrow(tab),] <- c("","","",round(summary(mod)$sigma, digits=3))
+  rownames(tab)<- c("plot","sp", "adjr2", "alpha", "beta", "95%_credible_int", rownames(par), "residuals")
+  tab <- cbind(tab,rownames(tab))
+  colnames(tab) <- c("a","b","c","d","e")
+  tab <- as.data.frame(tab)
+
+return (tab)
+}
+
 #############################  "effects" plot  ###############################
-funck <- function(signiflevel, plot, sp){
+town <- function(signiflevel, plot, sp){
   nbpar <- dim(bsimfixef)[2]
   signif <- as.data.frame(matrix(nrow=nbpar, ncol=2))
   colnames(signif) <- c("Inf0", "Sup0")
@@ -58,8 +94,9 @@ funck <- function(signiflevel, plot, sp){
 return (effplot)
 }   #fin de la fonction
 
-
 ######################## BIC #######################
+signiflevel = 0.05    # to select the parameters for "effects" plots
+
 ###################################################### Ab
 p <- "BIC"
 s <- "Ab"
@@ -69,10 +106,9 @@ load("modBICAb.rdata")
 load("data_newBICAb.rdata")
 load("bsimfixefBICAb.rdata")
 load("par2BICAb.rdata")
-par <- round(apply(bsimfixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3)
-par2
-eff <- funck(signiflevel = 0.05, plot = p, sp = s)
-assign(paste("eff",p,s,sep=""), eff)
+tab <- funky()
+alltab <- tab
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
 alleff <- eff
 ###################################################### Ar
 p <- "BIC"
@@ -83,12 +119,44 @@ load("modBICAr.rdata")
 load("data_newBICAr.rdata")
 load("bsimfixefBICAr.rdata")
 load("par2BICAr.rdata")
-par <- round(apply(bsimfixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3)
-par2
-eff <- funck(signiflevel = 0.05, plot = p, sp = s)
-assign(paste("eff",p,s,sep=""), eff)
-alleff <- rbind(alleff, eff)
-######################################################
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+if (eff[1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### As
+p <- "BIC"
+s <- "As"
+load("saveNCIBICAs.rdata")
+load("saveclimBICAs.rdata")
+load("modBICAs.rdata")
+load("data_newBICAs.rdata")
+load("bsimfixefBICAs.rdata")
+load("par2BICAs.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+if (eff[1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pt
+p <- "BIC"
+s <- "Pt"
+load("saveNCIBICPt.rdata")
+load("saveclimBICPt.rdata")
+load("modBICPt.rdata")
+load("data_newBICPt.rdata")
+load("bsimfixefBICPt.rdata")
+load("par2BICPt.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+if (eff[1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+
+
 
 
 
@@ -96,19 +164,25 @@ alleff <- rbind(alleff, eff)
 ##                     tables                     ##
 ####################################################
 
+### étoiles: effets fixes significativement > | < à 0
+### *** < 0.001; ** < 0.01; * < 0.05; ns = not significant (> 0.05)
+### "Std.Dev.randef" representent l'importance des effets aléatoires
+### peut se convertir en % (ne pas oublier les résidus)
+
+alltab <- as.matrix(alltab)
+alltab[is.na(alltab)] <- ""
 
 
 ####################################################
 ##                     figures                    ##
 ####################################################
 
+
+
 ggplot(alleff, aes(x=clim,y=lBAI,group=NCI))+
 geom_line(aes(linetype=NCI))+
 facet_grid(. ~ plotsppar, scales = "free", space = "free") +  # free / fixed / free_x / ..._y
 theme_bw()
-
-
-
 
 
 
