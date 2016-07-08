@@ -15,9 +15,7 @@ options(digits=22)
 ####################################################
 # Load Package
 library(arm)
-library(effects)
 library(ggplot2)
-library(grid)
 setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 load("./clim.Rdata")
 load("./chrono.Rdata")
@@ -359,8 +357,13 @@ bsimfixef <- as.data.frame(bsim@fixef)
 save(bsimfixef, file = namebsim)
 
 ## adjusted r2 (mod1)
-namemod1 <- paste("mod1", spsite, ".rdata", sep="")
-save(mod1, file = namemod1)
+par2 <- as.data.frame(matrix(ncol=3, nrow=1))
+colnames(par2) <- c("adjr2", "alpha", "beta")
+par2[,1] <- summary(mod1)$adj.r.squared
+par2[,2] <- alpha
+par2[,3] <- beta
+namempar2 <- paste("par2", spsite, ".rdata", sep="")
+save(par2, file = namempar2)
 
 ####################################################
 ##         save models for "effects" plots        ##
