@@ -54,7 +54,7 @@ clim <- as.data.frame(clim[clim$X>=beg & clim$X<=end,])
 # arbres avec données de croissance
 tmp <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
 # bande de X mètres
-aa <- 3675257 - 28
+aa <- 3674820 + 25
 ## arbres qui sont dans la bande
 data$edge <- 1.90*data$X+aa
 data$edge1 <- data$Y - data$edge
@@ -68,14 +68,15 @@ tmp1 <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
 
 ggplot(data=data, aes(X,Y))+
 geom_point(aes(size=DHP11), alpha=0.5)+
-scale_x_continuous(breaks=seq(695000,696500,50))+
+scale_x_continuous(breaks=seq(695700,696050,20))+
 geom_point(aes(size=DHP11), color="blue", alpha=0.5, data=data[data$edge1>0,])+
 geom_point(aes(size=DHP11), color="red", alpha=0.5, data=tmp)+
-stat_function(fun=function(x)1.90*x+3675257, color="red")+
+stat_function(fun=function(x)1.90*x+3674820, color="red")+
 stat_function(fun=function(x)1.90*x+aa, color="red")+
 geom_point(color="green", alpha=0.7, data=tmp1)+
-coord_fixed(ratio = 1)+  # même échelle pour les X et les Y
-ylim(4997000,4997500)
+coord_fixed(ratio = 1)+ # même échelle pour les X et les Y
+ylim(4997100,4997400)
+
 
 
 
