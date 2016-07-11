@@ -10,9 +10,13 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/AsBICepsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/AbSUTepsme.rwl")
 # import diameter & coordinates & IDs
-dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/BIC/BIC_uptodate_May2016.csv", sep=";")
+dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/Sutton/SUT_uptodate_June2016.csv", sep=";")
+# replace commas by dots
+dc$X_UTM <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$X_UTM)))
+dc$Y_UTM <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$Y_UTM)))
+dc$DHP_mm_ <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$DHP_mm_)))
 
 # set temporal window
 beg <- 1991
@@ -23,7 +27,10 @@ growth <- rw[rownames(rw)>=beg & rownames(rw)<=end ,]
 ##                  growth data                   ##
 ####################################################
 # changes individuals names in rw
-colnames(growth) <- substr(colnames(growth), 4,7)
+#colnames(growth) <- substr(colnames(growth), 4,7)
+colnames(growth) <- substr(colnames(growth), 3,7)
+colnames(growth)[substr(colnames(growth), 1,1)=="b"] <- substr(colnames(growth), 2,5)
+
 growth <- t(growth)
 growth <- as.data.frame(growth)
 growth[,"TAG"] <- rownames(growth)
@@ -43,8 +50,8 @@ colnames(dc)[colnames(dc)=="Esp"] <- "Sp"
 unique(dc$Sp)
 
 colnames(dc)[colnames(dc)=="DHP_mm_"] <- "DHP11"
-colnames(dc)[colnames(dc)=="X.UTM"] <- "X"
-colnames(dc)[colnames(dc)=="Y.UTM"] <- "Y"
+colnames(dc)[colnames(dc)=="X_UTM"] <- "X"
+colnames(dc)[colnames(dc)=="Y_UTM"] <- "Y"
 colnames(dc)[colnames(dc)=="Arbre"] <- "TAG"
 
 # only living trees (no DBH measures for dead trees)
@@ -55,9 +62,10 @@ tab$TAG <- as.factor(tab$TAG)
 # réduire la zone d'étude
 tab <- tab[!is.na(tab$X),] # on supprime d'abord les arbres sans coordonnées
 tab <- tab[!is.na(tab$Y),]
+
 ggplot(data=tab, aes(X,Y))+
 geom_point(aes(size=DHP11), alpha=0.5)
-tab <- tab[tab$X>513700 & tab$X<513850 & tab$Y>5353350 & tab$Y<5353550,]
+tab <- tab[tab$Y>4997000 & tab$Y<4997500,]
 ggplot(data=tab, aes(X,Y))+
 geom_point(aes(size=DHP11), alpha=0.5)
 
@@ -86,8 +94,6 @@ pb_TAG <- treei[duplicated(treei$TAG),"TAG"]
 treei[treei$TAG %in% pb_TAG,]
 
 
-
-
 #tab[tab$TAG=="3174",]
 
 # changes individuals names in tab
@@ -113,6 +119,13 @@ tree$TAG <- as.factor(tree$TAG)
 tree[substr(tree$TAG, 1, 4)=="twin",]
 tree[substr(tree$TAG, 1, 4)=="twin",6:ncol(tree)] <- NA
 tree[substr(tree$TAG, 1, 4)=="twin",]
+
+# Supression des données de croissance pour les ind.
+# de la mauvaise espèce (les ind. sans espèces sont exclus
+# automatiquement)
+tree[tree$TAG==10094,]
+tree[tree$TAG==10094,6:ncol(tree)] <- NA
+tree[tree$TAG==10094,]
 
 
 ####################################################
@@ -146,4 +159,4 @@ blabla <- tree[!is.na(tree[,"2011"]),]  ### pour vérifier que les croissances s
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AsBICtree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AbSUTtree.csv")
