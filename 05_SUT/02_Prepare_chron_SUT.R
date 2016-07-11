@@ -10,7 +10,7 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/AbSUTepsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/BaSUTepsme.rwl")
 # import diameter & coordinates & IDs
 dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/Sutton/SUT_uptodate_June2016.csv", sep=";")
 # replace commas by dots
@@ -30,6 +30,8 @@ growth <- rw[rownames(rw)>=beg & rownames(rw)<=end ,]
 #colnames(growth) <- substr(colnames(growth), 4,7)
 colnames(growth) <- substr(colnames(growth), 3,7)
 colnames(growth)[substr(colnames(growth), 1,1)=="b"] <- substr(colnames(growth), 2,5)
+colnames(growth)[substr(colnames(growth), 1,1)=="s"] <- substr(colnames(growth), 2,5)
+colnames(growth)[substr(colnames(growth), 1,1)=="a"] <- substr(colnames(growth), 2,5)
 
 growth <- t(growth)
 growth <- as.data.frame(growth)
@@ -86,6 +88,7 @@ nrow(treei)
 sum(duplicated(treei$TAG))
 # vérifier le nom des espèces carottés
 unique(treei$Sp)
+treei[treei$Sp=="ABBA",]
 
 # voire les arbres dupliqués (si même nom et même coordonnées alors
 # = fourche, on les exclus par la suite)
@@ -123,10 +126,13 @@ tree[substr(tree$TAG, 1, 4)=="twin",]
 # Supression des données de croissance pour les ind.
 # de la mauvaise espèce (les ind. sans espèces sont exclus
 # automatiquement)
-tree[tree$TAG==10094,]
-tree[tree$TAG==10094,6:ncol(tree)] <- NA
-tree[tree$TAG==10094,]
 
+  # tree[tree$TAG==10094,]
+  # tree[tree$TAG==10094,6:ncol(tree)] <- NA
+  # tree[tree$TAG==10094,]
+
+# le ABBA en trop dans les ACSA: 10093
+# le ACSA en trop dans les ABBA: 10094
 
 ####################################################
 ##                    diameters                   ##
@@ -152,11 +158,12 @@ for (i in 2010:beg){
 tree[,as.character(beg:2011)] <- tree[,as.character(beg:2011)]*-1
 
 
-blabla <- tree[!is.na(tree[,"2011"]),]  ### pour vérifier que les croissances sont bien répercutées sur les diamètres
+blabla <- tree[!is.na(tree[,"1991"]),]  ### pour vérifier que les croissances sont bien répercutées sur les diamètres
+
 
 
 ####################################################
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AbSUTtree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/BaSUTtree.csv")
