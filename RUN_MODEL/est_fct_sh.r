@@ -17,7 +17,7 @@ fn <- function(alpha=1,beta=1){
   diam <- "dbh"  # dbh or dbh2
 
   # which sp/site
-  spsite <- "BICAr" # ex: BICAr / D1823To
+  spsite <- "SUTAb" # ex: BICAr / D1823To
 
   ####################################################
   # model formula
@@ -30,6 +30,13 @@ fn <- function(alpha=1,beta=1){
     form <- lBAI ~ DC7+P6+S3+NCIhard+NCIsoft+DBH+NCI:DC7+NCI:P6+NCI:S3+(DC7+P6+S3+NCIhard+NCIsoft+DBH+NCI:DC7+NCI:P6+NCI:S3|TAG)
   } else if (spsite=="BICAb"){
       form <- lBAI ~ GSLp+Tp9+Sp9+NCIhard+NCIsoft+DBH+NCI:GSLp+NCI:Tp9+NCI:Sp9+(GSLp+Tp9+Sp9+NCIhard+NCIsoft+DBH+NCI:GSLp+NCI:Tp9+NCI:Sp9|TAG)
+  # SUT
+  } else if (spsite=="SUTAb"){
+      form <- lBAI ~ Sp11+S6+NCIhard+NCIsoft+DBH+NCI:Sp11+NCI:S6+(Sp11+S6+NCIhard+NCIsoft+DBH+NCI:Sp11+NCI:S6|TAG)
+  } else if (spsite=="SUTAs"){
+      form <- lBAI ~ DC6+NCIhard+NCIsoft+DBH+NCI:DC6+(DC6+NCIhard+NCIsoft+DBH+NCI:DC6|TAG)
+  } else if (spsite=="BICBA"){
+      form <- lBAI ~ Pp10+S4+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:S4+(Pp10+S4+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:S4|TAG)
   }
 
   ####################################################
@@ -52,15 +59,19 @@ fn <- function(alpha=1,beta=1){
   colnames(meas)[length(colnames(meas))] <- "NCI"
 
 
-  #colnames(meas)[53:68] <- sp    ## nom des colonnes de compétition pour chaque espèce
-  #meas$NCI <- rowSums(meas[,53:68]) ## calcul du NCI produit par toutes les individus autour de l'arbre focal
+  if (substr(spsite,1,3)=="BIC"){
+    ## hardwood competition
+    meas$NCIhard <- rowSums(meas[,c("BEPA","POTR","ACRU","ACSA","ACPE","SOAU","POBA","POGR","ACSP","SOAM", "QURU","SODE")])
 
-  ## hardwood competition
-  meas$NCIhard <- rowSums(meas[,c("BEPA","POTR","ACRU","ACSA","ACPE","SOAU","POBA","POGR","ACSP","SOAM", "QURU","SODE")])
+    ## softwood competition
+    meas$NCIsoft <- rowSums(meas[,c("ABBA","PIGL","THOC","PIRU")])
+  } else if (substr(spsite,1,3)=="SUT"){
+    ## hardwood competition
+    meas$NCIhard <- rowSums(meas[,c("BEPA","BEAL","FAGR","AMSP","ACRU","ACSA","ACPE","ACSP","SOAM","SODE","PRPE")])
 
-  ## softwood competition
-  meas$NCIsoft <- rowSums(meas[,c("ABBA","PIGL","THOC","PIRU")])
-
+    ## softwood competition
+    meas$NCIsoft <- rowSums(meas[,c("ABBA","PIGL","PIRU","TSCA")])
+  }
   data_mod = meas
 
   beg <- min(clim$X)
@@ -90,6 +101,8 @@ fn <- function(alpha=1,beta=1){
     data_new <- data_new[data_new$Year< 2007 | data_new$Year> 2010 ,]
   } else if (spsite=="BICAb"){
     data_new <- data_new[data_new$Year< 1977 | data_new$Year> 1985 ,]
+  }else if (spsite=="SUTAb"){
+    data_new <- data_new[data_new$Year< 1972 | data_new$Year> 1983 ,]
   }
 
   ####################################################
