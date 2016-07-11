@@ -37,7 +37,7 @@ beta  <- 0.3
 diam <- "dbh"
 
 # which sp/site
-spsite <- "SUTAb" # ex: BICAr / D1823To
+spsite <- "SUTBa" # ex: BICAr / D1823To
 
 ####################################################
 # model formula
@@ -55,7 +55,7 @@ if (spsite=="BICAs"){
     form <- lBAI ~ Sp11+S6+NCIhard+NCIsoft+DBH+NCI:Sp11+NCI:S6+(Sp11+S6+NCIhard+NCIsoft+DBH+NCI:Sp11+NCI:S6|TAG)
 } else if (spsite=="SUTAs"){
     form <- lBAI ~ DC6+NCIhard+NCIsoft+DBH+NCI:DC6+(DC6+NCIhard+NCIsoft+DBH+NCI:DC6|TAG)
-} else if (spsite=="BICBA"){
+} else if (spsite=="SUTBa"){
     form <- lBAI ~ Pp10+S4+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:S4+(Pp10+S4+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:S4|TAG)
 }
 
