@@ -17,7 +17,7 @@ buffer <- 2000 # (en cm)
 #setwd("~/Google Drive/Scan & measures")
 
 clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/climBIC.csv",sep=",",dec=".", stringsAsFactors=FALSE)
-data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AsBICtree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AbBICtree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
 
 ####################################################
 ####################################################
@@ -72,10 +72,10 @@ geom_point(aes(size=DHP11), color="red", alpha=0.5, data=tmp)+
 stat_function(fun=function(x)-1.08*x+5908415, color="red")+
 stat_function(fun=function(x)-1.08*x+aa, color="red")+
 geom_point(color="green", alpha=0.7, data=tmp1)+
-coord_fixed(ratio = 1)+  # même échelle pour les X et les Y
+coord_fixed(ratio = 1)  # même échelle pour les X et les Y
 ylim(5353350,5353550)
 
-#
+
 # plot(data$X, data$Y, cex = data$DHP11/300)
 # curve(-3.5*x+400, add=T, col="red")
 # aa <- 400+70
