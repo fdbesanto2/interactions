@@ -126,11 +126,11 @@ tree[substr(tree$TAG, 1, 4)=="twin",]
 # Supression des données de croissance pour les ind.
 # de la mauvaise espèce (les ind. sans espèces sont exclus
 # automatiquement)
-
-  # tree[tree$TAG==10094,]
-  # tree[tree$TAG==10094,6:ncol(tree)] <- NA
-  # tree[tree$TAG==10094,]
-
+  #
+  # tree[tree$TAG==10093,]
+  # tree[tree$TAG==10093,6:ncol(tree)] <- NA
+  # tree[tree$TAG==10093,]
+  #
 # le ABBA en trop dans les ACSA: 10093
 # le ACSA en trop dans les ABBA: 10094
 

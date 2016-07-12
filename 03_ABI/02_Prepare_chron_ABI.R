@@ -10,13 +10,11 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/BaSUTepsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/ToABIepsme.rwl")
 # import diameter & coordinates & IDs
-dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/Sutton/SUT_uptodate_June2016.csv", sep=";")
+dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/ABI/ABI_uptodate_June2016.csv", sep=";")
 # replace commas by dots
-dc$X_UTM <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$X_UTM)))
-dc$Y_UTM <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$Y_UTM)))
-dc$DHP_mm_ <- as.numeric(gsub(",", ".", gsub("\\.", "", dc$DHP_mm_)))
+dc$DHP_mm_ <- as.numeric(dc$DHP_mm_)
 
 # set temporal window
 beg <- 1991
@@ -27,11 +25,7 @@ growth <- rw[rownames(rw)>=beg & rownames(rw)<=end ,]
 ##                  growth data                   ##
 ####################################################
 # changes individuals names in rw
-#colnames(growth) <- substr(colnames(growth), 4,7)
-colnames(growth) <- substr(colnames(growth), 3,7)
-colnames(growth)[substr(colnames(growth), 1,1)=="b"] <- substr(colnames(growth), 2,5)
-colnames(growth)[substr(colnames(growth), 1,1)=="s"] <- substr(colnames(growth), 2,5)
-colnames(growth)[substr(colnames(growth), 1,1)=="a"] <- substr(colnames(growth), 2,5)
+colnames(growth) <- substr(colnames(growth), 4,7)
 
 growth <- t(growth)
 growth <- as.data.frame(growth)
@@ -43,7 +37,7 @@ growth
 growth$somme <- apply(growth[,1:(ncol(growth)-1)],1,sum, na.rm=T)
 growth <- growth[growth$somme!=0,]
 growth <- growth[,-ncol(growth)]
-
+growth$TAG <- as.numeric(growth$TAG)
 ####################################################
 ##           diameter & coordinates data          ##
 ####################################################
@@ -52,8 +46,8 @@ colnames(dc)[colnames(dc)=="Esp"] <- "Sp"
 unique(dc$Sp)
 
 colnames(dc)[colnames(dc)=="DHP_mm_"] <- "DHP11"
-colnames(dc)[colnames(dc)=="X_UTM"] <- "X"
-colnames(dc)[colnames(dc)=="Y_UTM"] <- "Y"
+colnames(dc)[colnames(dc)=="X.UTM"] <- "X"
+colnames(dc)[colnames(dc)=="Y.UTM"] <- "Y"
 colnames(dc)[colnames(dc)=="Arbre"] <- "TAG"
 
 # only living trees (no DBH measures for dead trees)
@@ -65,9 +59,6 @@ tab$TAG <- as.factor(tab$TAG)
 tab <- tab[!is.na(tab$X),] # on supprime d'abord les arbres sans coordonnées
 tab <- tab[!is.na(tab$Y),]
 
-ggplot(data=tab, aes(X,Y))+
-geom_point(aes(size=DHP11), alpha=0.5)
-tab <- tab[tab$Y>4997000 & tab$Y<4997500,]
 ggplot(data=tab, aes(X,Y))+
 geom_point(aes(size=DHP11), alpha=0.5)
 
@@ -166,4 +157,4 @@ blabla <- tree[!is.na(tree[,"1991"]),]  ### pour vérifier que les croissances s
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/BaSUTtree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/ToABItree.csv")
