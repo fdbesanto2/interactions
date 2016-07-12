@@ -10,7 +10,7 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/ToABIepsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/AsABIepsme.rwl")
 # import diameter & coordinates & IDs
 dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/ABI/ABI_uptodate_June2016.csv", sep=";")
 # replace commas by dots
@@ -157,4 +157,4 @@ blabla <- tree[!is.na(tree[,"1991"]),]  ### pour vérifier que les croissances s
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/ToABItree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AsABItree.csv")

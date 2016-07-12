@@ -1,91 +1,82 @@
 
-# Delete all objects in the work space
-rm(list=ls(all=TRUE))
-library(ggplot2)
+  # Delete all objects in the work space
+  rm(list=ls(all=TRUE))
+  library(ggplot2)
 
-####################################################
-##                  set radius                    ##
-####################################################
+  ####################################################
+  ##                  set radius                    ##
+  ####################################################
 
-## définition du rayon (pas diamètre) du cercle dans lequel la compétition opère autour de l'arbre focal
-buffer <- 2000 # (en cm)
+  ## définition du rayon (pas diamètre) du cercle dans lequel la compétition opère autour de l'arbre focal
+  buffer <- 2000 # (en cm)
 
-####################################################
-##                  Data & Packages               ##
-####################################################
+  ####################################################
+  ##                  Data & Packages               ##
+  ####################################################
 
-#setwd("~/Google Drive/Scan & measures")
+  #setwd("~/Google Drive/Scan & measures")
 
-clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/climSUT.csv",sep=",",dec=".", stringsAsFactors=FALSE)
-data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/BaSUTtree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+  clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/climABI.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+  data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/ToABItree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
 
-####################################################
-####################################################
+  ####################################################
+  ####################################################
 
-ggplot(data=data, aes(X,Y))+
-geom_point(aes(size=DHP11), alpha=0.5)
+  ggplot(data=data, aes(X,Y))+
+  geom_point(aes(size=DHP11), alpha=0.5)
 
-data$DHP11 <- as.numeric(data$DHP11)
-data <- data[!grepl("\\?",data$DHP11),]  ## supprimer les ? dans le fichier
-data <- data[data$DHP11!="",]            ## enlever les arbres sans DBH
-data <- data[!is.na(data$DHP11),]        ## enlever les arbres sans DBH
-data <- data[!is.na(data$X),]        ## enlever les arbres sans coordonnées
-data <- data[!is.na(data$Y),]        ## enlever les arbres sans coordonnées
-data <- data[data$DHP11!=0,]             ## enlever les arbres DBH = 0
+  data$DHP11 <- as.numeric(data$DHP11)
+  data <- data[!grepl("\\?",data$DHP11),]  ## supprimer les ? dans le fichier
+  data <- data[data$DHP11!="",]            ## enlever les arbres sans DBH
+  data <- data[!is.na(data$DHP11),]        ## enlever les arbres sans DBH
+  data <- data[!is.na(data$X),]        ## enlever les arbres sans coordonnées
+  data <- data[!is.na(data$Y),]        ## enlever les arbres sans coordonnées
+  data <- data[data$DHP11!=0,]             ## enlever les arbres DBH = 0
 
-#data <- data[data$DHP11<500,]             ## enlever les DBH trop grands (erreurs???)
-data <- data[data$DHP11>=100,]             ## enlever les DBH trop petits (<10)
-ggplot(data=data[data$DHP11>0,], aes(DHP11))+
-geom_histogram(bins=100)
+  #data <- data[data$DHP11<500,]             ## enlever les DBH trop grands (erreurs???)
+  data <- data[data$DHP11>=100,]             ## enlever les DBH trop petits (<10)
+  ggplot(data=data[data$DHP11>0,], aes(DHP11))+
+  geom_histogram(bins=100)
 
-####################################################
-##           set tmporal window for clim          ##
-####################################################
-# set same temporal windows as the one used for the chronologies
-beg <- min(as.numeric(substr(colnames(data)[substr(colnames(data),1,5)== "DHP19"],4,7)))
-end <- max(as.numeric(substr(colnames(data)[substr(colnames(data),1,5)== "DHP20"],4,7)))
-clim <- as.data.frame(clim[clim$X>=beg & clim$X<=end,])
+  ####################################################
+  ##           set tmporal window for clim          ##
+  ####################################################
+  # set same temporal windows as the one used for the chronologies
+  beg <- min(as.numeric(substr(colnames(data)[substr(colnames(data),1,5)== "DHP19"],4,7)))
+  end <- max(as.numeric(substr(colnames(data)[substr(colnames(data),1,5)== "DHP20"],4,7)))
+  clim <- as.data.frame(clim[clim$X>=beg & clim$X<=end,])
 
-####################################################
-##              Distance Calculation              ##
-####################################################
+  ####################################################
+  ##              Distance Calculation              ##
+  ####################################################
 
-############### delete trees on the edges manually
-# arbres avec données de croissance
-tmp <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
-# bande de X mètres
-aa <- 3674820 + 40
-## arbres qui sont dans la bande
-data$edge <- 1.90*data$X+aa
-data$edge1 <- data$Y - data$edge
+  ############### delete trees on the edges manually
+  # arbres avec données de croissance
+  tmp <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
+  # bande de X mètres
+  a <- -0.100
+  b <- 5398790
+  b2 <- b - 20
+  ## arbres qui sont dans la bande
+  data$edge <- a*data$X+b2
+  data$edge1 <- data$Y - data$edge
 
-## supprimer leur données de croissance
-data[data$edge1<0, substr(colnames(data),1,2)=="X1"] <- NA
-data[data$edge1<0, substr(colnames(data),1,2)=="X2"] <- NA
-tmp1 <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
-
-ggplot(data=data, aes(X,Y))+
-geom_point(aes(size=DHP11), alpha=0.5)+
-scale_x_continuous(breaks=seq(695700,696050,20))+
-geom_point(aes(size=DHP11), color="blue", alpha=0.5, data=data[data$edge1>0,])+
-geom_point(aes(size=DHP11), color="red", alpha=0.5, data=tmp)+
-stat_function(fun=function(x)1.90*x+3674820, color="red")+
-stat_function(fun=function(x)1.90*x+aa, color="red")+
-geom_point(color="green", alpha=0.7, data=tmp1)+
-coord_fixed(ratio = 1)+ # même échelle pour les X et les Y
-ylim(4997100,4997400)
+  ## supprimer leur données de croissance
+  data[data$edge1>0, substr(colnames(data),1,2)=="X1"] <- NA
+  data[data$edge1>0, substr(colnames(data),1,2)=="X2"] <- NA
+  tmp1 <- data[!is.na(data$X1991) | !is.na(data$X2000) | !is.na(data$X2010),]
 
 
-# plot(data$X, data$Y, cex = data$DHP11/300)
-# curve(-3.5*x+400, add=T, col="red")
-# aa <- 400+70
-# curve(-3.5*x+aa, add=T, col="red")
-# lines(tmp$X, tmp$Y, cex = data$DHP11/300, col="red", pch=16, type="p")
-# lines(data$X, data$Y, cex = data$DHP11/300, type="p")
-# axis(side= 1, at= seq(145,145+buffer))
-# lines(data[data$edge1<0,"X"], data[data$edge1<0,"Y"], cex = data$DHP11/300, col="blue", pch=16, type="p")
-# lines(tmp1$X, tmp1$Y, cex = data$DHP11/500, col="green", pch=16, type="p")
-
+  ggplot(data=data, aes(X,Y))+
+  geom_point(aes(size=DHP11), alpha=0.5)+
+  scale_x_continuous(breaks=seq(614600,614900,20))+
+  geom_point(aes(size=DHP11), color="blue", alpha=0.5, data=data[data$edge1>0,])+
+  geom_point(aes(size=DHP11), color="red", alpha=0.5, data=tmp)+
+  stat_function(fun=function(x)a*x+b, color="red")+
+  stat_function(fun=function(x)a*x+b2, color="red")+
+  geom_point(color="green", alpha=0.7, data=tmp1)+
+  coord_fixed(ratio = 1)+ # même échelle pour les X et les Y
+  ylim(5337095,5337330)
 
 data <- data[,-c(ncol(data)-1, ncol(data))] ## supprimer colonnes "edge" & "edge1"
 
