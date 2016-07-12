@@ -30,14 +30,14 @@ stockdist_inv <- Matrix(stockdist_inv, sparse=T)
 ##                      Model                     ##
 ####################################################
 # set alpha & beta
-alpha <-  0.6
-beta  <- 0.4
+alpha <-  3.5
+beta  <- 1.6
 
 # dbh or dbh^2 (dbh2) in the model?
 diam <- "dbh"
 
 # which sp/site
-spsite <- "ABITo" # ex: BICAr / D1823To
+spsite <- "SUTBa" # ex: BICAr / D1823To
 
 ####################################################
 # model formula
