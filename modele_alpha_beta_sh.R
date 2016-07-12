@@ -37,7 +37,7 @@ beta  <- 1.6
 diam <- "dbh"
 
 # which sp/site
-spsite <- "SUTBa" # ex: BICAr / D1823To
+spsite <- "ABIAb" # ex: BICAr / D1823To
 
 ####################################################
 # model formula

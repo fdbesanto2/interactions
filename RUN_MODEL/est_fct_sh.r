@@ -75,22 +75,22 @@ fn <- function(alpha=1,beta=1){
 
   if (substr(spsite,1,3)=="BIC"){
     ## hardwood competition
-    data$NCIhard <- rowSums(data[,c("BEPA","POTR","ACRU","ACSA","ACPE","SOAU","POBA","POGR","ACSP","SOAM", "QURU","SODE")])
+    meas$NCIhard <- rowSums(meas[,c("BEPA","POTR","ACRU","ACSA","ACPE","SOAU","POBA","POGR","ACSP","SOAM", "QURU","SODE")])
 
     ## softwood competition
-    data$NCIsoft <- rowSums(data[,c("ABBA","PIGL","THOC","PIRU")])
+    meas$NCIsoft <- rowSums(meas[,c("ABBA","PIGL","THOC","PIRU")])
   } else if (substr(spsite,1,3)=="SUT"){
     ## hardwood competition
-    data$NCIhard <- rowSums(data[,c("BEPA","BEAL","FAGR","AMSP","ACRU","ACSA","ACPE","ACSP","SOAM","SODE","PRPE")])
+    meas$NCIhard <- rowSums(meas[,c("BEPA","BEAL","FAGR","AMSP","ACRU","ACSA","ACPE","ACSP","SOAM","SODE","PRPE")])
 
     ## softwood competition
-    data$NCIsoft <- rowSums(data[,c("ABBA","PIGL","PIRU","TSCA")])
+    meas$NCIsoft <- rowSums(meas[,c("ABBA","PIGL","PIRU","TSCA")])
   } else if (substr(spsite,1,3)=="ABI"){
     ## hardwood competition
-    data$NCIhard <- rowSums(data[,c("BEPA","ACRU","ACSP","ACSA","BEAL","PRPE")])
+    meas$NCIhard <- rowSums(meas[,c("BEPA","ACRU","ACSP","ACSA","BEAL","PRPE")])
 
     ## softwood competition
-    data$NCIsoft <- rowSums(data[,c("ABBA","THOC","PIST","PIGL")])
+    meas$NCIsoft <- rowSums(meas[,c("ABBA","THOC","PIST","PIGL")])
   }
 
   data_mod = meas
