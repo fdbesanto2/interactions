@@ -37,7 +37,7 @@ beta  <- 1.6
 diam <- "dbh"
 
 # which sp/site
-spsite <- "SUTBa" # ex: BICAr / D1823To
+spsite <- "D1823Pt" # ex: BICAr / D1823To
 
 ####################################################
 # model formula
@@ -70,6 +70,16 @@ if (spsite=="BICAs"){
     form <- lBAI ~ DC5+T6+T8+NCIhard+NCIsoft+DBH+NCI:DC5+NCI:T6+NCI:T8+(DC5+T6+T8+NCIhard+NCIsoft+DBH+NCI:DC5+NCI:T6+NCI:T8|TAG)
 } else if (spsite=="ABITo"){
     form <- lBAI ~ Pp10+T6+P8+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:T6+NCI:P8+(Pp10+T6+P8+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:T6+NCI:P8|TAG)
+
+# D1823
+}else if (spsite=="D1823Ab"){
+    form <- lBAI ~ DC7+NCIhard+NCIsoft+DBH+NCI:DC7+(DC7+NCIhard+NCIsoft+DBH+NCI:DC7|TAG)
+} else if (spsite=="D1823Pg"){
+    form <- lBAI ~ DCp7+DCp9+P6+DC7+NCIhard+NCIsoft+DBH+NCI:DCp7+NCI:DCp9+NCI:P6+NCI:DC7+(DCp7+DCp9+P6+DC7+NCIhard+NCIsoft+DBH+NCI:DCp7+NCI:DCp9+NCI:P6+NCI:DC7|TAG)
+} else if (spsite=="D1823Pt"){
+    form <- lBAI ~ Tp8+S3+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:S3+(Tp8+S3+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:S3|TAG)
+} else if (spsite=="D1823To"){
+    form <- lBAI ~ T2+T6+T8+NCIhard+NCIsoft+DBH+NCI:T2+NCI:T6+NCI:T8+(T2+T6+T8+NCIhard+NCIsoft+DBH+NCI:T2+NCI:T6+NCI:T8|TAG)
 }
 
 
@@ -99,21 +109,23 @@ colnames(data)[length(colnames(data))] <- "NCI"
 if (substr(spsite,1,3)=="BIC"){
   ## hardwood competition
   data$NCIhard <- rowSums(data[,c("BEPA","POTR","ACRU","ACSA","ACPE","SOAU","POBA","POGR","ACSP","SOAM", "QURU","SODE")])
-
   ## softwood competition
   data$NCIsoft <- rowSums(data[,c("ABBA","PIGL","THOC","PIRU")])
 } else if (substr(spsite,1,3)=="SUT"){
   ## hardwood competition
   data$NCIhard <- rowSums(data[,c("BEPA","BEAL","FAGR","AMSP","ACRU","ACSA","ACPE","ACSP","SOAM","SODE","PRPE")])
-
   ## softwood competition
   data$NCIsoft <- rowSums(data[,c("ABBA","PIGL","PIRU","TSCA")])
 } else if (substr(spsite,1,3)=="ABI"){
   ## hardwood competition
   data$NCIhard <- rowSums(data[,c("BEPA","ACRU","ACSP","ACSA","BEAL","PRPE")])
-
   ## softwood competition
   data$NCIsoft <- rowSums(data[,c("ABBA","THOC","PIST","PIGL")])
+} else if (substr(spsite,1,5)=="D1823"){
+  ## hardwood competition
+  data$NCIhard <- rowSums(data[,c("BPA","PTR")])
+  ## softwood competition
+  data$NCIsoft <- rowSums(data[,c("ABA","TOC","PGL","PMA")])
 }
 
 data_mod = data
@@ -171,6 +183,12 @@ if (spsite=="BICPt"){
   data_new <- data_new[data_new$Year< 1981 | data_new$Year> 1991 ,]
 } else if (spsite=="ABIAb"){
   data_new <- data_new[data_new$Year< 1981 | data_new$Year> 1991 ,]
+} else if (spsite=="D1823Ab"){
+  data_new <- data_new[data_new$Year< 1980 | data_new$Year> 1990 ,]
+} else if (spsite=="D1823Pg"){
+  data_new <- data_new[data_new$Year< 1974 | data_new$Year> 1987 ,]
+} else if (spsite=="D1823Pt"){
+  data_new <- data_new[data_new$Year< 2001 | data_new$Year> 2004 ,]
 }
 
 ####################################################

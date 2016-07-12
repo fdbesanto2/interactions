@@ -16,8 +16,8 @@ buffer <- 2000 # (en cm)
 
 #setwd("~/Google Drive/Scan & measures")
 
-clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/climBIC.csv",sep=",",dec=".", stringsAsFactors=FALSE)
-data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/Ab1823tree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/clim1823.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/Pt1823tree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
 
 ####################################################
 ####################################################
