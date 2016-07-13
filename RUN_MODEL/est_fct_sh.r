@@ -17,7 +17,7 @@ fn <- function(alpha=1,beta=1){
   diam <- "dbh"  # dbh or dbh2
 
   # which sp/site
-  spsite <- "ABIAb" # ex: BICAr / D1823To
+  spsite <- "SUTBa" # ex: BICAr / D1823To
 
   ####################################################
   # model formula
