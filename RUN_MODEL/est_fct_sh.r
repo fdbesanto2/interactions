@@ -52,7 +52,7 @@ fn <- function(alpha=1,beta=1){
       form <- lBAI ~ Pp10+T6+P8+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:T6+NCI:P8+(Pp10+T6+P8+NCIhard+NCIsoft+DBH+NCI:Pp10+NCI:T6+NCI:P8|TAG)
 
   # D1823
-  }else if (spsite=="D1823Ab"){
+  } else if (spsite=="D1823Ab"){
       form <- lBAI ~ DC7+NCIhard+NCIsoft+DBH+NCI:DC7+(DC7+NCIhard+NCIsoft+DBH+NCI:DC7|TAG)
   } else if (spsite=="D1823Pg"){
       form <- lBAI ~ DCp7+DCp9+P6+DC7+NCIhard+NCIsoft+DBH+NCI:DCp7+NCI:DCp9+NCI:P6+NCI:DC7+(DCp7+DCp9+P6+DC7+NCIhard+NCIsoft+DBH+NCI:DCp7+NCI:DCp9+NCI:P6+NCI:DC7|TAG)
@@ -60,6 +60,16 @@ fn <- function(alpha=1,beta=1){
       form <- lBAI ~ Tp8+S3+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:S3+(Tp8+S3+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:S3|TAG)
   } else if (spsite=="D1823To"){
       form <- lBAI ~ T2+T6+T8+NCIhard+NCIsoft+DBH+NCI:T2+NCI:T6+NCI:T8+(T2+T6+T8+NCIhard+NCIsoft+DBH+NCI:T2+NCI:T6+NCI:T8|TAG)
+
+  # D1847
+  } else if (spsite=="D1847Ab"){
+      form <- lBAI ~ Pp6+T4+NCIhard+NCIsoft+DBH+NCI:Pp6+NCI:T4+(Pp6+T4+NCIhard+NCIsoft+DBH+NCI:Pp6+NCI:T4|TAG)
+  } else if (spsite=="D1847Pg"){
+      form <- lBAI ~ Pp7+T4+NCIhard+NCIsoft+DBH+NCI:Pp7+NCI:T4+(Pp7+T4+NCIhard+NCIsoft+DBH+NCI:Pp7+NCI:T4|TAG)
+  } else if (spsite=="D1847Pt"){
+      form <- lBAI ~ DCp8+S3+NCIhard+NCIsoft+DBH+NCI:DCp8+NCI:S3+(DCp8+S3+NCIhard+NCIsoft+DBH+NCI:DCp8+NCI:S3|TAG)
+  } else if (spsite=="D1847To"){
+      form <- lBAI ~ Tp8+Sp9+S1+T6+P8+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:Sp9+NCI:S1+NCI:T6+NCI:P8+(Tp8+Sp9+S1+T6+P8+NCIhard+NCIsoft+DBH+NCI:Tp8+NCI:Sp9+NCI:S1+NCI:T6+NCI:P8|TAG)
   }
 
   ####################################################
@@ -104,6 +114,11 @@ fn <- function(alpha=1,beta=1){
     meas$NCIhard <- rowSums(meas[,c("BPA","PTR")])
     ## softwood competition
     meas$NCIsoft <- rowSums(meas[,c("ABA","TOC","PGL","PMA")])
+  } else if (substr(spsite,1,5)=="D1847"){
+    ## hardwood competition
+    meas$NCIhard <- rowSums(meas[,c("BPA","PTR")])
+    ## softwood competition
+    meas$NCIsoft <- rowSums(meas[,c("ABA","TOC","PGL")])
   }
 
   data_mod = meas
@@ -147,6 +162,12 @@ fn <- function(alpha=1,beta=1){
     data_new <- data_new[data_new$Year< 1974 | data_new$Year> 1987 ,]
   } else if (spsite=="D1823Pt"){
     data_new <- data_new[data_new$Year< 2001 | data_new$Year> 2004 ,]
+  } else if (spsite=="D1847Ab"){
+    data_new <- data_new[data_new$Year< 1974 | data_new$Year> 1990 ,]
+  } else if (spsite=="D1847Pg"){
+    data_new <- data_new[data_new$Year< 1974 | data_new$Year> 1987 ,]
+  } else if (spsite=="D1847Pt"){
+    data_new <- data_new[data_new$Year< 2001 | data_new$Year> 2005 ,]
   }
 
   ####################################################
