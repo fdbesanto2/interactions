@@ -17,7 +17,7 @@
   #setwd("~/Google Drive/Scan & measures")
 
   clim=read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_clim/climABI.csv",sep=",",dec=".", stringsAsFactors=FALSE)
-  data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/ToABItree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
+  data <- read.csv("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/AbABItree.csv",sep=",",dec=".", stringsAsFactors=FALSE)
 
   ####################################################
   ####################################################

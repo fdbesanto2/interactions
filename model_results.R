@@ -26,33 +26,36 @@ library(ggplot2)
 
 #############################  parameters tab  ###############################
 funky <- function(){
+  ## 95% CI
   par <- as.data.frame(round(apply(bsimfixef,2,quantile, prob=c(0.025, 0.5, 0.975)), digits=3))
   par["plotsp",] <- paste(p,s,sep="")
   par <- t(par)
   par2["plotsp",] <- paste(p,s,sep="")
   par2 <- t(par2)
   nbpar <- dim(bsimfixef)[2]
-  tab <- matrix(ncol=4, nrow=nbpar+7)
+  tab <- matrix(ncol=4, nrow=nbpar+9)
   tab[1,] <- c(p,"","","")
   tab[2,] <- c(s,"","","")
-  tab[3,] <- c(round(as.numeric(par2[1,1]), digits=2),"","","")
-  tab[4,] <- c(par2[2,1],"","","")
-  tab[5,] <- c(par2[3,1],"","","")
-  tab[6,] <- c(colnames(par)[1],paste(colnames(par)[2],"/signfixef", sep=""),colnames(par)[3],"Std.Dev.randef")
+  tab[3,] <- c(summary(mod)$ngrps[1],"","","")
+  tab[4,] <- c(summary(mod)$devcomp$dims[1],"","","")
+  tab[5,] <- c(round(as.numeric(par2[1,1]), digits=2),"","","")
+  tab[6,] <- c(par2[2,1],"","","")
+  tab[7,] <- c(par2[3,1],"","","")
+  tab[8,] <- c(colnames(par)[1],paste(colnames(par)[2],"/signfixef", sep=""),colnames(par)[3],"Std.Dev.randef")
   sdrandef <- as.data.frame(summary(mod)$varcor)[1:nbpar,]
   for (i in 1:nbpar){
     j <- rownames(par)[i]
-    tab[6+i,] <- c(par[rownames(par)==j,1:3], round(sdrandef[sdrandef$var1 ==j,"sdcor"], digits=3))
+    tab[8+i,] <- c(par[rownames(par)==j,1:3], round(sdrandef[sdrandef$var1 ==j,"sdcor"], digits=3))
     if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.001 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.001){
-      tab[6+i,2] <- paste(tab[6+i,2],"***")
+      tab[8+i,2] <- paste(tab[8+i,2],"***")
     } else if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.01 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.01){
-      tab[6+i,2] <- paste(tab[6+i,2],"**")
+      tab[8+i,2] <- paste(tab[8+i,2],"**")
     } else if (sum(bsimfixef[,j]<0)/dim(bsimfixef)[1]<0.05 | sum(bsimfixef[,j]>0)/dim(bsimfixef)[1]<0.05){
-      tab[6+i,2] <- paste(tab[6+i,2],"*")
-    } else {tab[6+i,2] <- paste(tab[6+i,2],"ns")}
+      tab[8+i,2] <- paste(tab[8+i,2],"*")
+    } else {tab[8+i,2] <- paste(tab[8+i,2],"ns")}
   }
   tab[nrow(tab),] <- c("","","",round(summary(mod)$sigma, digits=3))
-  rownames(tab)<- c("plot","sp", "adjr2", "alpha", "beta", "95%_credible_int", rownames(par), "residuals")
+  rownames(tab)<- c("plot","sp","nbind","nbobs", "adjr2", "alpha", "beta", "95%_credible_int", rownames(par), "residuals")
   tab <- cbind(tab,rownames(tab))
   colnames(tab) <- c("a","b","c","d","e")
   tab <- as.data.frame(tab)
@@ -95,7 +98,7 @@ return (effplot)
 }   #fin de la fonction
 
 ######################## BIC #######################
-signiflevel = 0.05    # to select the parameters for "effects" plots
+signiflevel = 0.10    # to select the parameters for "effects" plots
 
 ###################################################### Ab
 p <- "BIC"
@@ -426,13 +429,6 @@ if (eff[1,1]!="ns"){
 }
 
 
-
-
-
-
-
-
-
 ####################################################
 ##                     tables                     ##
 ####################################################
@@ -445,20 +441,26 @@ if (eff[1,1]!="ns"){
 alltab <- as.matrix(alltab)
 alltab[is.na(alltab)] <- ""
 
+rownames(alltab) <- alltab[,"e"]
+alltab <- alltab[,-1]
+
+
+write.csv(alltab, "mod_results.csv")
 
 ####################################################
 ##                     figures                    ##
 ####################################################
 
+alleff$NCI <- as.character(alleff$NCI)
+alleff$NCI <- as.numeric(alleff$NCI)
+alleff$NCI <- as.factor(alleff$NCI)
 
+#alleff <- alleff[alleff$plotsppar=="BICAsDC7",]
 
 ggplot(alleff, aes(x=clim,y=lBAI,group=NCI))+
-geom_line(aes(linetype=NCI))+
-facet_grid(. ~ plotsppar, scales = "free", space = "free") +  # free / fixed / free_x / ..._y
+geom_line(aes(color=NCI))+  ## linetype=NCI
+facet_grid(. ~ plotsppar, scales = "free", space = "fixed") +  # free / fixed / free_x / ..._y
 theme_bw()
-
-
-
 
 
 
