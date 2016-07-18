@@ -30,14 +30,14 @@ stockdist_inv <- Matrix(stockdist_inv, sparse=T)
 ##                      Model                     ##
 ####################################################
 # set alpha & beta
-alpha <-  3.5
-beta  <- 1.6
+alpha <-  8.3
+beta  <- 1.7
 
 # dbh or dbh^2 (dbh2) in the model?
 diam <- "dbh"
 
 # which sp/site
-spsite <- "D1847To" # ex: BICAr / D1823To
+spsite <- "SUTBa" # ex: BICAr / D1823To
 
 
 ####################################################
@@ -401,7 +401,7 @@ options(digits=7) ### retour à la valeur par défaut
 ####################################################
 
 ### specific hypothesis
-sum(bsim@fixef[,4]>0)/nsim
+sum(bsim@fixef[,7]>0)/nsim
 
 # Plot predictions
 ## effect of NCI on BAI

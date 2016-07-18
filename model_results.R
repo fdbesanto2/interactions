@@ -109,6 +109,7 @@ load("par2BICAb.rdata")
 tab <- funky()
 alltab <- tab
 eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
 alleff <- eff
 ###################################################### Ar
 p <- "BIC"
@@ -122,7 +123,8 @@ load("par2BICAr.rdata")
 tab <- funky()
 alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
 eff <- town(signiflevel = signiflevel, plot = p, sp = s)
-if (eff[1]!="ns"){
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
   alleff <- rbind(alleff, eff)
 }
 ###################################################### As
@@ -137,7 +139,8 @@ load("par2BICAs.rdata")
 tab <- funky()
 alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
 eff <- town(signiflevel = signiflevel, plot = p, sp = s)
-if (eff[1]!="ns"){
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
   alleff <- rbind(alleff, eff)
 }
 ###################################################### Pt
@@ -152,9 +155,279 @@ load("par2BICPt.rdata")
 tab <- funky()
 alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
 eff <- town(signiflevel = signiflevel, plot = p, sp = s)
-if (eff[1]!="ns"){
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
   alleff <- rbind(alleff, eff)
 }
+
+######################## D1823 #######################
+###################################################### Ab
+p <- "D1823"
+s <- "Ab"
+load("saveNCID1823Ab.rdata")
+load("saveclimD1823Ab.rdata")
+load("modD1823Ab.rdata")
+load("data_newD1823Ab.rdata")
+load("bsimfixefD1823Ab.rdata")
+load("par2D1823Ab.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pg
+p <- "D1823"
+s <- "Pg"
+load("saveNCID1823Pg.rdata")
+load("saveclimD1823Pg.rdata")
+load("modD1823Pg.rdata")
+load("data_newD1823Pg.rdata")
+load("bsimfixefD1823Pg.rdata")
+load("par2D1823Pg.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pt
+p <- "D1823"
+s <- "Pt"
+load("saveNCID1823Pt.rdata")
+load("saveclimD1823Pt.rdata")
+load("modD1823Pt.rdata")
+load("data_newD1823Pt.rdata")
+load("bsimfixefD1823Pt.rdata")
+load("par2D1823Pt.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### To
+p <- "D1823"
+s <- "To"
+load("saveNCID1823To.rdata")
+load("saveclimD1823To.rdata")
+load("modD1823To.rdata")
+load("data_newD1823To.rdata")
+load("bsimfixefD1823To.rdata")
+load("par2D1823To.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+
+
+######################## D1847 #######################
+###################################################### Ab
+p <- "D1847"
+s <- "Ab"
+load("saveNCID1847Ab.rdata")
+load("saveclimD1847Ab.rdata")
+load("modD1847Ab.rdata")
+load("data_newD1847Ab.rdata")
+load("bsimfixefD1847Ab.rdata")
+load("par2D1847Ab.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pg
+p <- "D1847"
+s <- "Pg"
+load("saveNCID1847Pg.rdata")
+load("saveclimD1847Pg.rdata")
+load("modD1847Pg.rdata")
+load("data_newD1847Pg.rdata")
+load("bsimfixefD1847Pg.rdata")
+load("par2D1847Pg.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pt
+p <- "D1847"
+s <- "Pt"
+load("saveNCID1847Pt.rdata")
+load("saveclimD1847Pt.rdata")
+load("modD1847Pt.rdata")
+load("data_newD1847Pt.rdata")
+load("bsimfixefD1847Pt.rdata")
+load("par2D1847Pt.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### To
+p <- "D1847"
+s <- "To"
+load("saveNCID1847To.rdata")
+load("saveclimD1847To.rdata")
+load("modD1847To.rdata")
+load("data_newD1847To.rdata")
+load("bsimfixefD1847To.rdata")
+load("par2D1847To.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+
+######################## ABI #######################
+###################################################### Ab
+p <- "ABI"
+s <- "Ab"
+load("saveNCIABIAb.rdata")
+load("saveclimABIAb.rdata")
+load("modABIAb.rdata")
+load("data_newABIAb.rdata")
+load("bsimfixefABIAb.rdata")
+load("par2ABIAb.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Ar
+p <- "ABI"
+s <- "Ar"
+load("saveNCIABIAr.rdata")
+load("saveclimABIAr.rdata")
+load("modABIAr.rdata")
+load("data_newABIAr.rdata")
+load("bsimfixefABIAr.rdata")
+load("par2ABIAr.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### As
+p <- "ABI"
+s <- "As"
+load("saveNCIABIAs.rdata")
+load("saveclimABIAs.rdata")
+load("modABIAs.rdata")
+load("data_newABIAs.rdata")
+load("bsimfixefABIAs.rdata")
+load("par2ABIAs.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Pg
+p <- "ABI"
+s <- "Pg"
+load("saveNCIABIPg.rdata")
+load("saveclimABIPg.rdata")
+load("modABIPg.rdata")
+load("data_newABIPg.rdata")
+load("bsimfixefABIPg.rdata")
+load("par2ABIPg.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### To
+p <- "ABI"
+s <- "To"
+load("saveNCIABITo.rdata")
+load("saveclimABITo.rdata")
+load("modABITo.rdata")
+load("data_newABITo.rdata")
+load("bsimfixefABITo.rdata")
+load("par2ABITo.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+
+######################## SUT #######################
+###################################################### Ab
+p <- "SUT"
+s <- "Ab"
+load("saveNCISUTAb.rdata")
+load("saveclimSUTAb.rdata")
+load("modSUTAb.rdata")
+load("data_newSUTAb.rdata")
+load("bsimfixefSUTAb.rdata")
+load("par2SUTAb.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### As
+p <- "SUT"
+s <- "As"
+load("saveNCISUTAs.rdata")
+load("saveclimSUTAs.rdata")
+load("modSUTAs.rdata")
+load("data_newSUTAs.rdata")
+load("bsimfixefSUTAs.rdata")
+load("par2SUTAs.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+###################################################### Ba
+p <- "SUT"
+s <- "Ba"
+load("saveNCISUTBa.rdata")
+load("saveclimSUTBa.rdata")
+load("modSUTBa.rdata")
+load("data_newSUTBa.rdata")
+load("bsimfixefSUTBa.rdata")
+load("par2SUTBa.rdata")
+tab <- funky()
+alltab <- merge(alltab, tab, by="e", all=TRUE, sort=FALSE)
+eff <- town(signiflevel = signiflevel, plot = p, sp = s)
+eff <- as.data.frame(eff)
+if (eff[1,1]!="ns"){
+  alleff <- rbind(alleff, eff)
+}
+
+
+
+
 
 
 
