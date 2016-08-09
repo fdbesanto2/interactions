@@ -98,7 +98,7 @@ return (effplot)
 }   #fin de la fonction
 
 ######################## BIC #######################
-signiflevel = 0.10    # to select the parameters for "effects" plots
+signiflevel = 0.05    # to select the parameters for "effects" plots
 
 ###################################################### Ab
 p <- "BIC"

@@ -10,7 +10,7 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/To1847epsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/Pg1847epsme.rwl")
 # import diameter & coordinates & IDs
 dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/Duparquet/1847/1847_diez_point.csv", sep=";")
 # columns format
@@ -68,45 +68,45 @@ growth[substr(growth$TAG,1,2) == "I0","TAG"] <- paste("I",substr(growth[substr(g
 
 
 # pour les PGL
-# growth[growth$TAG=="226","TAG"] <- "V226"
-# growth[growth$TAG=="496","TAG"] <- "V496"
-# growth[growth$TAG=="371","TAG"] <- "V371"
-# growth[growth$TAG=="373","TAG"] <- "V373"
-# growth[growth$TAG=="95","TAG"] <- "V95"
-# growth[growth$TAG=="390","TAG"] <- "V390"
-# growth[growth$TAG=="100","TAG"] <- "V100"
-# growth[growth$TAG=="396","TAG"] <- "V396"
-# growth[growth$TAG=="147","TAG"] <- "V147"
-# growth[growth$TAG=="409","TAG"] <- "V409"
-# growth[growth$TAG=="437","TAG"] <- "V437"
-# growth[growth$TAG=="467","TAG"] <- "V467"
-# growth[growth$TAG=="217","TAG"] <- "V217"
-# growth[growth$TAG=="495","TAG"] <- "V495"
-# growth[growth$TAG=="711","TAG"] <- "V711"
-# growth[growth$TAG=="393","TAG"] <- "V393"
-# growth[growth$TAG=="864","TAG"] <- "V864"
-# growth[growth$TAG=="387","TAG"] <- "V387"
-# growth[growth$TAG=="773","TAG"] <- "V773"
-# growth[growth$TAG=="860","TAG"] <- "V860"
-# growth[growth$TAG=="792","TAG"] <- "V792"
-# growth[growth$TAG=="400","TAG"] <- "V400"
-# growth[growth$TAG=="765","TAG"] <- "V765"
-# growth[growth$TAG=="489","TAG"] <- "V489"
-# growth[growth$TAG=="173","TAG"] <- "V173"
-# growth[growth$TAG=="879","TAG"] <- "K879"
-# growth[growth$TAG=="817","TAG"] <- "K817"
-# growth[growth$TAG=="826","TAG"] <- "K826"
-# growth[growth$TAG=="199","TAG"] <- "V199"
-# growth[growth$TAG=="279","TAG"] <- "V279"
-# growth[growth$TAG=="735","TAG"] <- "V735"
-# growth[growth$TAG=="804","TAG"] <- "V804"
-# growth[growth$TAG=="853","TAG"] <- "K853"
-# growth[growth$TAG=="857","TAG"] <- "V857"
-# growth[growth$TAG=="863","TAG"] <- "V863"
-# growth[growth$TAG=="912","TAG"] <- "V912"
-# growth[growth$TAG== "945","TAG"] <- "K945"
-# growth[growth$TAG== "720","TAG"] <- "V720"
-# growth[growth$TAG== "793","TAG"] <- "V793"
+growth[growth$TAG=="226","TAG"] <- "V226"
+growth[growth$TAG=="496","TAG"] <- "V496"
+growth[growth$TAG=="371","TAG"] <- "V371"
+growth[growth$TAG=="373","TAG"] <- "V373"
+growth[growth$TAG=="95","TAG"] <- "V95"
+growth[growth$TAG=="390","TAG"] <- "V390"
+growth[growth$TAG=="100","TAG"] <- "V100"
+growth[growth$TAG=="396","TAG"] <- "V396"
+growth[growth$TAG=="147","TAG"] <- "V147"
+growth[growth$TAG=="409","TAG"] <- "V409"
+growth[growth$TAG=="437","TAG"] <- "V437"
+growth[growth$TAG=="467","TAG"] <- "V467"
+growth[growth$TAG=="217","TAG"] <- "V217"
+growth[growth$TAG=="495","TAG"] <- "V495"
+growth[growth$TAG=="711","TAG"] <- "V711"
+growth[growth$TAG=="393","TAG"] <- "V393"
+growth[growth$TAG=="864","TAG"] <- "V864"
+growth[growth$TAG=="387","TAG"] <- "V387"
+growth[growth$TAG=="773","TAG"] <- "V773"
+growth[growth$TAG=="860","TAG"] <- "V860"
+growth[growth$TAG=="792","TAG"] <- "V792"
+growth[growth$TAG=="400","TAG"] <- "V400"
+growth[growth$TAG=="765","TAG"] <- "V765"
+growth[growth$TAG=="489","TAG"] <- "V489"
+growth[growth$TAG=="173","TAG"] <- "V173"
+growth[growth$TAG=="879","TAG"] <- "K879"
+growth[growth$TAG=="817","TAG"] <- "K817"
+growth[growth$TAG=="826","TAG"] <- "K826"
+growth[growth$TAG=="199","TAG"] <- "V199"
+growth[growth$TAG=="279","TAG"] <- "V279"
+growth[growth$TAG=="735","TAG"] <- "V735"
+growth[growth$TAG=="804","TAG"] <- "V804"
+growth[growth$TAG=="853","TAG"] <- "K853"
+growth[growth$TAG=="857","TAG"] <- "V857"
+growth[growth$TAG=="863","TAG"] <- "V863"
+growth[growth$TAG=="912","TAG"] <- "V912"
+growth[growth$TAG== "945","TAG"] <- "K945"
+growth[growth$TAG== "720","TAG"] <- "V720"
+growth[growth$TAG== "793","TAG"] <- "V793"
 
 
 tab$TAG <- as.character(tab$TAG)
@@ -163,13 +163,11 @@ tree[substr(tree$TAG, 1, 4)=="twin",]
 
 # Supression des données de croissance pour les ind.
 # de la mauvaise espèce (les ind. sans espèces sont exclus
-# automatiquement)s
+# automatiquement)
 
 
-# pour les PGL
-# tree[tree$TAG=="183" | tree$TAG=="907" | tree$TAG=="K879" | tree$TAG=="V860",]
-# tree[tree$TAG=="183" | tree$TAG=="907" | tree$TAG=="K879" | tree$TAG=="V860",6:ncol(tree)] <- NA
-# tree[tree$TAG=="183" | tree$TAG=="907" | tree$TAG=="K879" | tree$TAG=="V860",]
+# # pour les PGL
+tree[tree$TAG=="183" | tree$TAG=="907" | tree$TAG=="K879" | tree$TAG=="V860",6:ncol(tree)] <- NA
 
 # pour les PGL
 # tree[tree$TAG=="K826",]
@@ -177,10 +175,10 @@ tree[substr(tree$TAG, 1, 4)=="twin",]
 # tree[tree$TAG=="K826",]
 
 
-# pour les TOC
-tree[tree$TAG=="809",]
-tree[tree$TAG=="809",6:ncol(tree)] <- NA
-tree[tree$TAG=="809",]
+# # pour les TOC
+# tree[tree$TAG=="809",]
+# tree[tree$TAG=="809",6:ncol(tree)] <- NA
+# tree[tree$TAG=="809",]
 ####################################################
 ##                    diameters                   ##
 ####################################################
@@ -213,4 +211,4 @@ blabla <- tree[!is.na(tree[,"1992"]),]  ### pour vérifier que les croissances s
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/To1847tree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/Pg1847tree.csv")

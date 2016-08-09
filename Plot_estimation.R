@@ -8,7 +8,7 @@ options(digits=22)
 setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 load("./result_estimate.Rdata")
 
-#load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/03_ABI/output/AbABIsh1_5.rdata")
+# load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/01_D1823/output/PtD1823sh10.rdata")
 #load("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL/AbABIsh1_5.rdata")
 
 ####################################################
@@ -26,7 +26,7 @@ scale_fill_gradientn(colours=c("blue","green","red"))+
 geom_point(data= out[out[,3]==max(out[,3]),], color="black")+
 ggtitle(point)
 
-  ggsave("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/02_D1847/output/ToD1847sh2.jpg", width=5, height= 5, dpi=600)
+# ggsave("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/05_SUT/output/BaSUTsh.jpg", width=5, height= 5, dpi=600)
 
 
 ####################################################

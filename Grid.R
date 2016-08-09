@@ -14,8 +14,8 @@ setwd("~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/RUN_MODEL")
 
 ## limite de l'espace alpha/beta
 p <- 5000 # nb de point voulu sur la grille
-alpha1 <- seq(1.5, 4.5, length.out = round(sqrt(p)))
-beta1 <- seq(0, 1.5, length.out = round(sqrt(p)))
+alpha1 <- seq(6, 9.5, length.out = round(sqrt(p)))
+beta1 <- seq(0, 3.5, length.out = round(sqrt(p)))
 d1 <- expand.grid(alpha1 = alpha1, beta1 = beta1)
 d1[d1==0]<- 0.0000001  # pas de 0 car sinon ca plante...
 

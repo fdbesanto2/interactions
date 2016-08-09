@@ -10,7 +10,7 @@ rm(list=ls())
 library(dplR)
 library(ggplot2)
 # Import growth
-rw <- read.tucson("~/ownCloud/Scan & measures/RWL/To1823epsme.rwl")
+rw <- read.tucson("~/ownCloud/Scan & measures/RWL/Pg1823epsme.rwl")
 # import diameter & coordinates & IDs
 dc <- read.csv("~/ownCloud/Work_directory/Data/Sampling/Duparquet/1823/1823_titre_point.csv", sep=";")
 # columns format
@@ -168,4 +168,4 @@ blabla <- tree[!is.na(tree[,"2000"]),]  ### pour vérifier que les croissances s
 ##                  save               ##
 ####################################################
 
-write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/To1823tree.csv")
+write.csv(tree, "~/ownCloud/Work_directory/Analysis/chapitre_2/interactions/input_chron/Pt1823tree.csv")

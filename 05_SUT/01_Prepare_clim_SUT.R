@@ -92,7 +92,7 @@ clim <- as.matrix(clim)
 temp <- clim[,c(6:12, 18:24, 30:36, 42:48, 54:60, 66:72)]
 rownames(temp) <- as.character(as.numeric(rownames(temp))+1)
 temp <- temp[-nrow(temp),]
-colnames(temp) <- c("Ptot-6","Ptot-7","Ptot-8","Ptot-9","Ptot-10","Ptot-11","Ptot-12","Tmean-6","Tmean-7","Tmean-8","Tmean-9","Tmean-10","Tmean-11","Tmean-12","Sftot-6","Sftot-7","Sftot-8","Sftot-9","Sftot-10","Sftot-11","Sftot-12","DD-6","DD-7","DD-8","DD-9","DD-10","DD-11","DD-12","DC-6","DC-7","DC-8","DC-9","DC-10","DC-11","DC-12","GSL-6","GSL-7","GSL-8","GSL-9","GSL-10","GSL-11","GSL-12")
+colnames(temp) <- c("Tmean-6","Tmean-7","Tmean-8","Tmean-9","Tmean-10","Tmean-11","Tmean-12","Ptot-6","Ptot-7","Ptot-8","Ptot-9","Ptot-10","Ptot-11","Ptot-12","Sftot-6","Sftot-7","Sftot-8","Sftot-9","Sftot-10","Sftot-11","Sftot-12","DD-6","DD-7","DD-8","DD-9","DD-10","DD-11","DD-12","DC-6","DC-7","DC-8","DC-9","DC-10","DC-11","DC-12","GSL-6","GSL-7","GSL-8","GSL-9","GSL-10","GSL-11","GSL-12")
 clim <- clim[-1,]
 clim <- cbind(clim, temp)
 
